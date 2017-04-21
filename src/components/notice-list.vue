@@ -19,6 +19,7 @@
 <script>
     import NoneDataScroller from '@/components/none-data-scroller';
     import api from '@/assets/js/api.js';
+    import setWechatTitle from '@/utils/setWechatTitle.js';
 
     export default {
         name: "notice-list",
@@ -35,7 +36,7 @@
         },
         watch: {
             pageTitle: function (val) {
-                document.title = val;
+                setWechatTitle(val);
             },
             '$route' (to, from) {
                 this.updatePageTitle();

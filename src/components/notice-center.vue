@@ -2,7 +2,8 @@
     <NoneData :show="noneDataShow" :type="noneDataType">
         <ul class="org-list">
             <li class="org-item" v-for="item in orgList">
-                <router-link :to="{'name': 'notice-list', 'params': {'org_id': item.org_id, 'org_name': item.org_name}}">
+                <router-link
+                        :to="{'name': 'notice-list', 'params': {'org_id': item.org_id, 'org_name': item.org_name}}">
                     <img class="head-img" v-bind:src="getFullImgPath(item.org_logo_url)">
                     <span class="org-name">{{item.org_name}}</span>
                 </router-link>
@@ -13,6 +14,7 @@
 <script>
     import NoneData from '@/components/none-data';
     import api from '@/assets/js/api.js';
+    import setWechatTitle from '@/utils/setWechatTitle.js';
 
     export default {
         name: 'notice-center',
@@ -34,7 +36,7 @@
             }
         },
         mounted: function () {
-            document.title = this.pageTitle;
+            setWechatTitle(this.pageTitle);
             this.getMyAssociations(this.$route.params.member_info_id);
         },
         methods: {
@@ -59,7 +61,7 @@
                 });
             },
             getMyCreateOrg: function (list) {
-                for (var i = 0, len = list.length; i < len; i++) {
+                for (var i = list.length - 1; i >= 0; i--) {
                     if (!list[i]['isbuilder']) {
                         list.splice(i, 1);
                     }
