@@ -18,6 +18,7 @@
             }
         },
         getFullImgPath: function ($this, path) {
+            if (!path) return '';
             return $this.config.server + $this.config.imgRoot + '/' + path.replace(/^\//, '');
         },
         /**
@@ -300,7 +301,8 @@ window.api = new Api({
     // 接口路径配置
     paths: {
         getMyAssociations: "/AssociationController/getMyAssociations.hn",
-        countNotice: "/MessageController/countNotice.hn"
+        countNotice: "/MessageController/countNotice.hn",
+        wechatShare: "/ShareController/share.hn" // shareType: 0 分享协会 , 1 分享公告, 2 分享直播
     },
     fields: {
         code: "code",

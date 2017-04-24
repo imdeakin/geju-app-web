@@ -26,7 +26,7 @@
   export default {
     name: "notice-list",
     components: {
-      NoneDataScroller,
+      NoneDataScroller
     },
     data () {
       return {
