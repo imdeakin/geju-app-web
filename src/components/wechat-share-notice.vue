@@ -1,5 +1,5 @@
 <template>
-    <div class="con" v-wechat-title="articleData.msg_title">
+    <div class="con" v-wechat-title="articleData.msg_title" v-wx-api="wechatShareConfig">
         <NoneData :show="noneDataShow" :type="noneDataType">
             <WechatShareDownloadBar></WechatShareDownloadBar>
             <div class="wrapper">
@@ -29,6 +29,8 @@
     import Vue from 'vue';
     import NoneData from '@/components/none-data';
     import VueWechatTitle from 'vue-wechat-title';
+    import installWxApi from '@/assets/js/wxapiconfig.js';
+    Vue.use(installWxApi);
     Vue.use(VueWechatTitle);
 
     export default {
@@ -39,19 +41,28 @@
         },
         data () {
             return {
-                articleData: {
-                    picture_url: '',
-                    nickName: '',
-                    msg_create_time: '',
-                    msg_title: '',
-                    msg_content: ''
-                },
+                articleData: {},
                 noneDataShow: false,
-                noneDataType: 0
+                noneDataType: 0,
+                wechatShareConfig: {
+                    title: '',
+                    logo: '',
+                    url: ''
+                }
             }
         },
         mounted: function () {
             this.getNoticeData();
+        },
+        watch: {
+            articleData: function (data) {
+                this.wechatShareConfig = {
+                    title: '我在格局【格局】看到一个不错的资讯，向您推荐一下！',
+                    desc: data.msg_title,
+                    logo: this.getFullImgPath(data.org_logo_url),
+                    url: window.location.href
+                }
+            }
         },
         methods: {
             getNoticeData: function () {
@@ -85,7 +96,7 @@
                 this.noneDataType = 1;
             },
             showNoneData: function () {
-                if (!this.articleData) {
+                if (!this.articleData['msg_id']) {
                     this.noneDataShow = true;
                     this.noneDataType = 0;
                 } else {
@@ -93,7 +104,7 @@
                 }
             },
             showContent: function () {
-                if (this.articleData) {
+                if (this.articleData['msg_id']) {
                     this.noneDataShow = false;
                 }
             },

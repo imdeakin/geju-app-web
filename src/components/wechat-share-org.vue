@@ -1,8 +1,8 @@
 <template>
-    <div class="con" v-wechat-title="orgData.org_name">
+    <div class="con" v-wechat-title="orgData.org_name" v-wx-api="wechatShareConfig">
         <NoneData :show="noneDataShow" :type="noneDataType">
             <WechatShareDownloadBar></WechatShareDownloadBar>
-            <div class="wrapper" >
+            <div class="wrapper">
                 <div class="banner" v-bind:style="{backgroundImage:'url(' + banner + ')'}">
                     <div class="org-brand">
                         <div class="org-logo"><img :src="getFullImgPath(orgData.org_logo_url)"></div>
@@ -40,6 +40,8 @@
     import Vue from 'vue';
     import NoneData from '@/components/none-data';
     import VueWechatTitle from 'vue-wechat-title';
+    import installWxApi from '@/assets/js/wxapiconfig.js';
+    Vue.use(installWxApi);
     Vue.use(VueWechatTitle);
 
     export default {
@@ -53,11 +55,26 @@
                 banner: 'static/img/org-banner-bg_01.png',
                 orgData: {},
                 noneDataShow: false,
-                noneDataType: 0
+                noneDataType: 0,
+                wechatShareConfig: {
+                    title: '',
+                    logo: '',
+                    url: ''
+                }
             }
         },
         mounted: function () {
             this.getNoticeData();
+        },
+        watch: {
+            orgData: function (data) {
+                this.wechatShareConfig = {
+                    title: '我在格局【格局】看到一个不错的协会【' + data.org_name + '】，向您推荐一下！',
+                    desc: data.org_des,
+                    logo: this.getFullImgPath(data.org_logo_url),
+                    url: window.location.href
+                }
+            }
         },
         methods: {
             getNoticeData: function () {

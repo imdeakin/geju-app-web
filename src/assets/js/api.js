@@ -125,7 +125,7 @@
                 var defaults = {
                         url: "",
                         async: true,
-                        type: "",
+                        type: "GET",
                         dataType: "json",
                         data: "",
                         success: fn,
@@ -295,7 +295,7 @@
 })();
 
 window.api = new Api({
-    server: "http://geju.gzyueyun.com:8088",
+    server: "http://geju.gzyueyun.com",
     root: "/xhapi/xhapi",
     imgRoot: "/xhapi",
     // 接口路径配置
