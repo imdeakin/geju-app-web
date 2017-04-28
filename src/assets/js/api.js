@@ -302,7 +302,8 @@ window.api = new Api({
     paths: {
         getMyAssociations: "/AssociationController/getMyAssociations.hn",
         countNotice: "/MessageController/countNotice.hn",
-        wechatShare: "/ShareController/share.hn" // shareType: 0 分享协会 , 1 分享公告, 2 分享直播
+        wechatShare: "/ShareController/share.hn", // shareType: 0 分享协会 , 1 分享公告, 2 分享直播
+        getServiceTerms: "/ProtocolController/getArtice.hn" // shareType: 0 分享协会 , 1 分享公告, 2 分享直播
     },
     fields: {
         code: "code",

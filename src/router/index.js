@@ -5,6 +5,7 @@ import noticeList from '@/components/notice-list';
 import wechatShareNotice from '@/components/wechat-share-notice';
 import wechatShareOrg from '@/components/wechat-share-org';
 import wechatShareLive from '@/components/wechat-share-live';
+import serviceTerms from '@/components/service-terms.vue';
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
             path: '/wechat-share/live/:share_key',
             name: 'wechat-share-live',
             component: wechatShareLive
+        },
+        {
+            path: '/service-terms',
+            name: 'service-terms',
+            component: serviceTerms
         }
     ]
 });

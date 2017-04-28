@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <a class="dl-btn" href="http://www.gzyueyun.com/assets/dowload.html">马上下载格局加入协会</a>
+                    <a class="dl-btn" href="http://www.gzyueyun.com/assets/dowload.html">赶快下载格局加入组织吧</a>
                 </div>
             </div>
         </NoneData>
