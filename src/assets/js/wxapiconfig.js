@@ -1,4 +1,5 @@
 (function () {
+    var https = window.location.href.search(/^https:/) >= 0;
     var isReady = false;
     var Ajax = function () {
         function request(opt) {
@@ -71,9 +72,7 @@
         //取当前页面url，不包含#部分
         var getCurrentUrl = function () {
             var url = location.href;
-            console.log(encodeURIComponent('#'))
             // var url = location.href.replace(/\/\?#\//g, '/hash/').split('#')[0].replace(/\/hash\//g, '/?#/');
-            alert(url);
             return url;
         };
 
@@ -90,7 +89,7 @@
         };
 
         Ajax.request({
-            url: 'http://www.gzyueyun.com/yueyunapi/wx/WxSignController/getSign.hn',
+            url: (https ? 'https' : 'http' ) + '://www.gzyueyun.com/yueyunapi/wx/WxSignController/getSign.hn',
             data: {url: url},
             success: ajaxSuccess
         });
@@ -106,7 +105,7 @@
                 signature = signParm.signature;
             var apilist = ["onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo", "onMenuShareQZone"];
             wx.config({
-                debug: true,
+                debug: false,
                 appId: appid,
                 timestamp: timestamp,
                 nonceStr: noncestr,

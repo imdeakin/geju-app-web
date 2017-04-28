@@ -3,7 +3,15 @@
         <NoneData :show="noneDataShow" :type="noneDataType">
             <WechatShareDownloadBar></WechatShareDownloadBar>
             <div class="wrapper">
-                <div v-sewise-player="sewisePlayerConfig"></div>
+                <div class="player-con">
+                    <div class="player-open" v-if="curLive.status == 0" v-sewise-player="curLiveUrl" key="player-open"></div>
+                    <div class="player-close" v-else key="player-close">
+                        <div class="live-status">
+                            <span class="live-status-light" v-bind:class="{online: curLive.status == 0}"></span>
+                            <span class="live-status-text">{{getLiveStatusText(curLive.status)}}</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="live-ad-bar">
                     <div class="content">
                         <img :src="getFullImgPath(curLive.org_logo_url)">
@@ -15,7 +23,7 @@
                 <div class="live-list-con">
                     <h3 class="live-list-title">更多精彩直播</h3>
                     <ul class="live-list">
-                        <li class="live-item" v-for="item in liveList">
+                        <li class="live-item" v-for="item in liveList" v-if="item.live_id !== curLive.live_id">
                             <router-link :to="{name:'wechat-share-live', params:{share_key: item.live_id}}">
                                 <div class="live-item-con">
                                     <div class="live-status">
@@ -59,14 +67,10 @@
         data () {
             return {
                 liveList: [],
-                curLive: {"plug_id": ''},
+                curLive: {},
                 noneDataShow: false,
                 noneDataType: 0,
-                wechatShareConfig: {
-                    title: '',
-                    logo: '',
-                    url: ''
-                }
+                wechatShareConfig: {}
             }
         },
         mounted: function () {
@@ -88,26 +92,23 @@
             }
         },
         computed: {
-            sewisePlayerConfig () {
-                return {width: '100%', height: '5.2rem', url: this.curLiveUrl};
-            },
             curLiveUrl () {
-                if (!this.curLive['plug_id']) {
-                    return '';
+                var url = '',
+                    id = this.curLive['plug_id'];
+                if (id) {
+                    var rtmp = 'rtmp://rtmp.krapnik.cn/ucloud/' + id;
+                    url = 'static/js/player/sewise.player.min.js?' +
+                        'server=live' +
+                        '&type=rtmp' +
+                        '&streamurl=' + rtmp +
+                        '&autostart=true' +
+                        '&pid=' +
+                        '&shifttime=' +
+                        '&buffer=5' +
+                        '&lang=zh_CN' +
+                        '&title=' + this.curLive['live_title'] +
+                        '&skin=liveWhite';
                 }
-                var rtmp = 'rtmp://rtmp.krapnik.cn/ucloud/' + this.curLive['plug_id'];
-                var url = 'static/js/player/sewise.player.min.js?' +
-                    'server=live' +
-                    '&type=rtmp' +
-                    '&streamurl=' + rtmp + //'http://jackzhang1204.github.io/materials/mov_bbb.ogg'
-                    '&autostart=true' +
-                    '&pid=' +
-                    '&shifttime=' +
-                    '&buffer=5' +
-                    '&lang=zh_CN' +
-//                    '&logo=' + this.getFullImgPath(this.curLive.org_logo_url) +
-                    '&title=' + this.curLive.live_title +
-                    '&skin=liveWhite';
                 return url;
             }
         },
@@ -147,6 +148,9 @@
             getLiveStatusText: function (status) {
                 return status == 1 ? '休息中' : '直播中';
             },
+            getCurLiveUrl: function () {
+
+            },
             showLoading: function () {
                 this.noneDataShow = true;
                 this.noneDataType = 2;
@@ -184,6 +188,51 @@
         width: 100%;
         height: 100%;
         background: #f6f6f6;
+    }
+
+    .player-con {
+        position: relative;
+        width: 100%;
+        height: 5.2rem;
+        background: black;
+    }
+
+    .player-con > div {
+        width: 100%;
+        height: 100%;
+    }
+
+    .player-close {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .player-close .live-status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .player-close .live-status-light {
+        display: inline-block;
+        width: .38rem;
+        height: .38rem;
+        border-radius: 50%;
+        background: #eb6100;
+        margin-right: .15rem;
+    }
+
+    .player-close .live-status-light.online {
+        background: #22ac38;
+    }
+
+    .player-close .live-status {
+        font-size: .42rem;
+        color: white;
     }
 
     .live-ad-bar {
@@ -274,7 +323,7 @@
         background-size: contain;
     }
 
-    .live-status {
+    .live-item-con .live-status {
         display: inline-block;
         margin: .14rem;
         float: right;
@@ -287,7 +336,7 @@
         background: #7f7f7f;
     }
 
-    .live-status-light {
+    .live-item-con .live-status-light {
         display: inline-block;
         width: .12rem;
         height: .12rem;
@@ -296,7 +345,7 @@
         vertical-align: middle;
     }
 
-    .live-status-light.online {
+    .live-item-con .live-status-light.online {
         background: #22ac38;
     }
 
