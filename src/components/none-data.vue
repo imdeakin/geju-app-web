@@ -1,9 +1,9 @@
 <template>
-    <div class="con">
-        <div class="con" v-if="!show">
+    <div class="none-data-con">
+        <div class="none-data-con none-data-con-has" v-if="!show">
             <slot></slot>
         </div>
-        <div class="con none-data" v-if="show">
+        <div class="none-data-con none-data-con-none" v-if="show">
             <div class="none-data-wrapper">
                 <img class="none-data-icon" :src="showIcon" v-if="type !== 2">
                 <img class="loading-icon" :src="showIcon" v-else="type === 2">
@@ -63,12 +63,12 @@
     }
 </script>
 <style scoped>
-    .con {
+    .none-data-con {
         width: 100%;
         height: 100%;
     }
 
-    .none-data {
+    .none-data-con-none {
         display: flex;
         justify-content: center;
         align-items: center;
