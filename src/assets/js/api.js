@@ -295,7 +295,7 @@
 })();
 
 window.api = new Api({
-    server: 'https://geju.gzyueyun.com', //window.location.protocol + '//' + window.location.host, //'https://geju.gzyueyun.com'
+    server: window.location.protocol + '//' + window.location.host, // 'https://geju.gzyueyun.com'
     root: "/xhapi/xhapi",
     imgRoot: "/xhapi",
     // 接口路径配置
