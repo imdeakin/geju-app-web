@@ -4,7 +4,6 @@
 (function () {
     function install(Vue) {
         var installSewisePlayer = function (container, url) {
-            console.log(url)
             container.innerHTML = '';
             var script = document.createElement('script');
             script.setAttribute('src', url);

@@ -23,7 +23,7 @@
                         <div class="text">{{orgData.org_addr}}</div>
                     </div>
                     <div class="info-group border-none">
-                        <div class="label">组织成员</div>
+                        <div class="label">联系人</div>
                         <div class="text">{{orgData.org_contact_name}}</div>
                     </div>
                 </div>
