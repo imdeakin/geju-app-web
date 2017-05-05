@@ -98,7 +98,7 @@
                 var url = '',
                     id = this.curLive['plug_id'] || '';
                 if (id) {
-                    var rtmp = 'http://hls.krapnik.cn/ucloud/' + id + '/playlist.m3u8';
+                    var rtmp = 'http://hls.gzyueyun.com/ucloud/' + id + '/playlist.m3u8';
                     url = 'static/js/player/sewise.player.min.js?' +
                         'server=live' +
                         '&type=m3u8' +
