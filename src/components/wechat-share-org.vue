@@ -16,7 +16,7 @@
                     </div>
                     <div class="info-group">
                         <div class="label">组织电话</div>
-                        <div class="text">{{orgData.org_tel}}</div>
+                        <div class="text text-right">{{orgData.org_tel}}</div>
                     </div>
                     <div class="info-group">
                         <div class="label">组织地址</div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="info-group border-none">
                         <div class="label">联系人</div>
-                        <div class="text">{{orgData.org_contact_name}}</div>
+                        <div class="text text-right">{{orgData.org_contact_name}}</div>
                     </div>
                 </div>
                 <div class="footer">
@@ -169,6 +169,7 @@
     }
 
     .info-group {
+        position: relative;
         line-height: .86rem;
         border-bottom: 2px solid #e9e9e9;
     }
@@ -178,34 +179,27 @@
     }
 
     .info-group .label {
-        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4em;
         font-size: .3rem;
+        line-height: .86rem;
         color: #282828;
     }
 
     .info-group .text {
-        float: right;
         font-size: .3rem;
         color: #818181;
-        line-height: .86rem;
-        padding-right: .28rem;
-    }
-
-    .info-group.info-group-block {
-        line-height: 1em;
-    }
-
-    .info-group.info-group-block .label {
-        padding-top: .3rem;
-        padding-bottom: .08rem;
+        line-height: .4rem;
+        padding: .2rem .28rem .2rem 5em;
+        text-align: right;
     }
 
     .info-group.info-group-block .text {
-        float: none;
         font-size: .28rem;
         color: #444;
-        line-height: .4rem;
-        padding-bottom: .14rem;
+        text-align: left;
     }
 
     .footer {
