@@ -182,7 +182,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 4em;
+        width: 5em;
         font-size: .3rem;
         line-height: .86rem;
         color: #282828;

@@ -5,7 +5,10 @@
                       ref="noneDataScroller">
         <ul class="notice-list" v-wechat-title="pageTitle">
             <li class="notice-item" v-for="item in noticeList">
-                <img class="notice-img" v-bind:src="getFullImgPath(item.org_logo_url)">
+                <div class="notice-img">
+                    <DefaultImg :img="getFullImgPath(item.org_logo_url)"></DefaultImg>
+                </div>
+                <!--<img class="notice-img" v-bind:src="getFullImgPath(item.org_logo_url)">-->
                 <div class="notice-content">
                     <div class="notice-title">{{item.msg_title}}</div>
                     <div class="notice-time">发布时间：{{item.msg_create_time}}</div>
@@ -19,6 +22,7 @@
 <script>
     import Vue from 'vue';
     import NoneDataScroller from '@/components/none-data-scroller';
+    import DefaultImg from '@/components/default-img';
     import api from '@/assets/js/api.js';
     import VueWechatTitle from 'vue-wechat-title';
     Vue.use(VueWechatTitle);
@@ -26,7 +30,8 @@
     export default {
         name: "notice-list",
         components: {
-            NoneDataScroller
+            NoneDataScroller,
+            DefaultImg
         },
         data () {
             return {
@@ -136,10 +141,11 @@
     }
 
     .notice-img {
+        display: inline-block;
         width: 1.14rem;
         height: 1.14rem;
         border-radius: .08rem;
-        border: 1px solid #dbdbdb;
+        /*border: 1px solid #dbdbdb;*/
     }
 
     .notice-content {
